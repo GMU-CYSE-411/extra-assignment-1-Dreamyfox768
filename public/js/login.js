@@ -1,12 +1,4 @@
-(function setupFixationHelper() {
-  const params = new URLSearchParams(window.location.search);
-  const fixedSession = params.get("sid");
-
-  if (fixedSession) {
-    document.cookie = `sid=${fixedSession}; path=/`;
-  }
-})();
-
+// removing fixation fntion to protect from session fixation attacks, attacker can not use open sessions
 document.getElementById("login-form").addEventListener("submit", async (event) => {
   event.preventDefault();
 
