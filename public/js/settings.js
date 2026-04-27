@@ -10,10 +10,18 @@ async function loadSettings(userId) {
   form.elements.theme.value = settings.theme;
   form.elements.statusMessage.value = settings.statusMessage;
   form.elements.emailOptIn.checked = Boolean(settings.emailOptIn);
-  document.getElementById("status-preview").innerHTML = `
-    <p><strong>${settings.displayName}</strong></p>
-    <p>${settings.statusMessage}</p>
-  `;
+  
+  const preview = document.getElementById("status-preview");
+  preview.replaceChildren();
+  const name = document.createElement("p");
+  const strong = document.createElement("strong");
+  strong.textContent = settings.displayName;// textcontent , values as text and not html code. Refactor status preview to use DOM manipulation instead of innerHTML for better security.
+  name.appendChild(strong);
+  
+  const message = document.createElement("p");
+  message.textContent = settings.statusMessage;
+  
+  preview.append(name, message);//same as note.js removing innerhtml and adding box layout method of UI to protect from xss attack. 
 
   writeJson("settings-output", settings);
 }
